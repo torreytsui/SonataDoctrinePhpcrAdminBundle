@@ -52,7 +52,7 @@ class TypeGuesser implements TypeGuesserInterface
         }
 
         if ($metadata->hasAssociation($property)) {
-            // TODO add support for children, child, referrers and parentDocument associations
+            // TODO add support for children, child, referrers associations
             $mapping = $metadata->mappings[$property];
 
             switch ($mapping['type']) {
@@ -61,12 +61,15 @@ class TypeGuesser implements TypeGuesserInterface
 
                 case ClassMetadata::MANY_TO_ONE:
                     return new TypeGuess('doctrine_phpcr_many_to_one', array(), Guess::HIGH_CONFIDENCE);
+
+                case 'parent':
+                    return new TypeGuess('doctrine_phpcr_odm_tree', array(), Guess::HIGH_CONFIDENCE);
             }
         }
 
         // TODO add support for node, nodename, version created, version name
 
-        // TODO: missing multi value support
+        // TODO: this is a duplicate of the PHPCRTypeGuesser. can we remove it here? seems sonata does not use the basic form guessers
         switch ($metadata->getTypeOfField($property)) {
             case 'boolean':
                 return new TypeGuess('boolean', array(), Guess::HIGH_CONFIDENCE);
