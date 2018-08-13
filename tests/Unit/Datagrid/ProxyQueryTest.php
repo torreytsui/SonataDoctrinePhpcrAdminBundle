@@ -11,7 +11,9 @@
 
 namespace Sonata\DoctrinePHPCRAdminBundle\Tests\Unit\Datagrid;
 
+use Doctrine\ODM\PHPCR\DocumentManager;
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
+use Doctrine\ODM\PHPCR\Query\Query;
 use PHPUnit\Framework\TestCase;
 use Sonata\DoctrinePHPCRAdminBundle\Datagrid\ProxyQuery;
 
@@ -29,10 +31,10 @@ class ProxyQueryTest extends TestCase
 
     public function setUp()
     {
-        $this->qb = $this->getMockBuilder('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder')
+        $this->qb = $this->getMockBuilder(QueryBuilder::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->query = $this->getMockBuilder('Doctrine\ODM\PHPCR\Query\Query')
+        $this->query = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -41,7 +43,7 @@ class ProxyQueryTest extends TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder', $this->pq->getQueryBuilder());
+        $this->assertInstanceOf(QueryBuilder::class, $this->pq->getQueryBuilder());
     }
 
     public function testSetSortBy()
@@ -56,11 +58,10 @@ class ProxyQueryTest extends TestCase
         $this->assertEquals('ASC', $this->pq->getSortOrder());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetSortOrderInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->pq->setSortOrder('SOME_ORDER');
         $this->assertEquals('SOME_ORDER', $this->pq->getSortOrder());
     }
@@ -114,7 +115,7 @@ class ProxyQueryTest extends TestCase
 
     public function testGetAndSetDocumentManager()
     {
-        $dm = $this->getMockBuilder('Doctrine\\ODM\\PHPCR\\DocumentManager')
+        $dm = $this->getMockBuilder(DocumentManager::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->pq->setDocumentManager($dm);

@@ -1,7 +1,17 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\DoctrinePHPCRAdminBundle\Tests\WebTest\Dashboard;
 
+use Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\DataFixtures\Phpcr\LoadTreeData;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase;
 
 /**
@@ -11,7 +21,7 @@ class TreeBrowserTest extends BaseTestCase
 {
     public function setUp()
     {
-        $this->db('PHPCR')->loadFixtures(['Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\DataFixtures\Phpcr\LoadTreeData']);
+        $this->db('PHPCR')->loadFixtures([LoadTreeData::class]);
         $this->client = $this->createClient();
     }
 

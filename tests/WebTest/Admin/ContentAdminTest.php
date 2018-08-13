@@ -1,20 +1,30 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\DoctrinePHPCRAdminBundle\Tests\WebTest\Admin;
 
+use Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\DataFixtures\Phpcr\LoadTreeData;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase;
 
 class ContentAdminTest extends BaseTestCase
 {
     public function setUp()
     {
-        $this->db('PHPCR')->loadFixtures(['Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\DataFixtures\Phpcr\LoadTreeData']);
+        $this->db('PHPCR')->loadFixtures([LoadTreeData::class]);
         $this->client = $this->createClient();
     }
 
     public function testContentList()
     {
-        $crawler = $this->client->request('GET', '/admin/tests/resources/content/list');
+        $crawler = $this->client->request('GET', '/admin/fixtures/app/content/list');
         $res = $this->client->getResponse();
 
         $this->assertResponseSuccess($res);
@@ -23,7 +33,7 @@ class ContentAdminTest extends BaseTestCase
 
     public function testContentWithChildEdit()
     {
-        $crawler = $this->client->request('GET', '/admin/tests/resources/content/test/content/content-1/edit');
+        $crawler = $this->client->request('GET', '/admin/fixtures/app/content/test/content/content-1/edit');
         $res = $this->client->getResponse();
 
         $this->assertResponseSuccess($res);
@@ -40,7 +50,7 @@ class ContentAdminTest extends BaseTestCase
 
     public function testContentWithChildrenEdit()
     {
-        $crawler = $this->client->request('GET', '/admin/tests/resources/content/test/content/content-2/edit');
+        $crawler = $this->client->request('GET', '/admin/fixtures/app/content/test/content/content-2/edit');
         $res = $this->client->getResponse();
 
         $this->assertResponseSuccess($res);
@@ -54,7 +64,7 @@ class ContentAdminTest extends BaseTestCase
 
     public function testContentCreate()
     {
-        $crawler = $this->client->request('GET', '/admin/tests/resources/content/create');
+        $crawler = $this->client->request('GET', '/admin/fixtures/app/content/create');
         $res = $this->client->getResponse();
         $this->assertResponseSuccess($res);
 
@@ -77,7 +87,7 @@ class ContentAdminTest extends BaseTestCase
 
     public function testShowContent()
     {
-        $crawler = $this->client->request('GET', '/admin/tests/resources/content/test/content/content-1/show');
+        $crawler = $this->client->request('GET', '/admin/fixtures/app/content/test/content/content-1/show');
         $res = $this->client->getResponse();
 
         if (200 !== $res->getStatusCode()) {

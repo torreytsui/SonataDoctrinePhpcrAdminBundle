@@ -2,7 +2,8 @@
 /docs/_build
 /vendor
 .php_cs.cache
+.phpunit
 composer.lock
 phpunit.xml
-tests/Resources/app/cache/
-tests/Resources/app/logs/
+tests/Fixtures/App/var/cache/
+tests/Fixtures/App/var/logs/

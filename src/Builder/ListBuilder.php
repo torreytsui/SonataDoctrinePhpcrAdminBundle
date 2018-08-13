@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\ListBuilderInterface;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
+use Symfony\Component\Form\Guess\TypeGuess;
 
 class ListBuilder implements ListBuilderInterface
 {
@@ -55,7 +56,7 @@ class ListBuilder implements ListBuilderInterface
     {
         if (null == $type) {
             $guessType = $this->guesser->guessType($admin->getClass(), $fieldDescription->getName(), $admin->getModelManager());
-            $fieldDescription->setType($guessType->getType());
+            $fieldDescription->setType(($guessType instanceof TypeGuess ? $guessType->getType() : null));
         } else {
             $fieldDescription->setType($type);
         }
@@ -161,19 +162,19 @@ class ListBuilder implements ListBuilderInterface
             $fieldDescription->setTemplate($this->getTemplate($fieldDescription->getType()));
 
             if (ClassMetadata::MANY_TO_ONE == $fieldDescription->getMappingType()) {
-                $fieldDescription->setTemplate('SonataAdminBundle:CRUD/Association:list_many_to_one.html.twig');
+                $fieldDescription->setTemplate('@SonataAdmin/CRUD/Association/list_many_to_one.html.twig');
             }
 
             if (ClassMetadata::MANY_TO_MANY == $fieldDescription->getMappingType()) {
-                $fieldDescription->setTemplate('SonataAdminBundle:CRUD/Association:list_many_to_many.html.twig');
+                $fieldDescription->setTemplate('@SonataAdmin/CRUD/Association/list_many_to_many.html.twig');
             }
 
             if ('child' == $fieldDescription->getMappingType() || 'parent' == $fieldDescription->getMappingType()) {
-                $fieldDescription->setTemplate('SonataAdminBundle:CRUD/Association:list_one_to_one.html.twig');
+                $fieldDescription->setTemplate('@SonataAdmin/CRUD/Association/list_one_to_one.html.twig');
             }
 
             if ('children' == $fieldDescription->getMappingType() || 'referrers' == $fieldDescription->getMappingType()) {
-                $fieldDescription->setTemplate('SonataAdminBundle:CRUD/Association:list_one_to_many.html.twig');
+                $fieldDescription->setTemplate('@SonataAdmin/CRUD/Association/list_one_to_many.html.twig');
             }
         }
 
@@ -202,7 +203,7 @@ class ListBuilder implements ListBuilderInterface
     public function buildActionFieldDescription(FieldDescriptionInterface $fieldDescription)
     {
         if (null === $fieldDescription->getTemplate()) {
-            $fieldDescription->setTemplate('SonataAdminBundle:CRUD:list__action.html.twig');
+            $fieldDescription->setTemplate('@SonataAdmin/CRUD/list__action.html.twig');
         }
 
         if (null === $fieldDescription->getType()) {
@@ -221,7 +222,7 @@ class ListBuilder implements ListBuilderInterface
             $actions = $fieldDescription->getOption('actions');
             foreach ($actions as $k => $action) {
                 if (!isset($action['template'])) {
-                    $actions[$k]['template'] = sprintf('SonataAdminBundle:CRUD:list__action_%s.html.twig', $k);
+                    $actions[$k]['template'] = sprintf('@SonataAdmin/CRUD/list__action_%s.html.twig', $k);
                 }
             }
 

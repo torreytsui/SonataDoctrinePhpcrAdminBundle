@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of the Symfony CMF package.
+ * This file is part of the Sonata Project package.
  *
- * (c) 2011-2017 Symfony CMF
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\DataFixtures\Phpcr;
+namespace Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\DataFixtures\Phpcr;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use PHPCR\Util\NodeHelper;
-use Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\Document\Content;
+use Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\Document\Content;
 
 class LoadTreeData implements FixtureInterface
 {

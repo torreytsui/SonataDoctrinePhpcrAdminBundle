@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the Symfony CMF package.
+ * This file is part of the Sonata Project package.
  *
- * (c) 2011-2017 Symfony CMF
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\Document;
+namespace Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
@@ -60,14 +60,14 @@ class Content
     protected $children;
 
     /**
-     * @PHPCRODM\ReferenceOne(targetDocument="Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\Document\Content")
+     * @PHPCRODM\ReferenceOne(targetDocument="Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\Document\Content")
      *
      * @var Content
      */
     protected $singleRoute;
 
     /**
-     * @PHPCRODM\ReferenceMany(targetDocument="Sonata\DoctrinePHPCRAdminBundle\Tests\Resources\Document\Content")
+     * @PHPCRODM\ReferenceMany(targetDocument="Sonata\DoctrinePHPCRAdminBundle\Tests\Fixtures\App\Document\Content")
      *
      * @var ArrayCollection|Content[]
      */
